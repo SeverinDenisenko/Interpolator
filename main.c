@@ -42,7 +42,12 @@ int main(int argc, char *argv[]){
     }
 
     if (DATA == NULL){
-        printf("Error: file .dat doesn't exist.\n");
+        printf("Error: source .dat file doesn't exist.\n");
+        exit(1);
+    }
+
+    if (RESULT == NULL){
+        printf("Error: can't create the result.dat.\n");
         exit(1);
     }
 
@@ -61,15 +66,15 @@ int main(int argc, char *argv[]){
     fscanf(DATA, "%lf", &a);
     fscanf(DATA, "%lf", &b);
 
-    double *data = malloc(sizeof(double) * n);
-    double *result = malloc(sizeof(double) * q * n);
+    double *data = malloc(sizeof(double) * (n + 1));
+    double *result = malloc(sizeof(double) * (q * n + 1));
 
     if (data == NULL || result == NULL){
         printf("Error allocating space.\n");
         exit(1);
     }
 
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n + 1; ++i) {
         fscanf(DATA, "%lf", &data[i]);
     }
 
@@ -90,9 +95,15 @@ int main(int argc, char *argv[]){
     fprintf(RESULT, "# %d\n", n * q);
     fprintf(RESULT, "%lf %lf\n", a, b);
 
-    for (int i = 0; i < n * q; ++i) {
+    for (int i = 0; i < n * q + 1; ++i) {
         fprintf(RESULT, "%lf\n", result[i]);
     }
+
+    fclose(DATA);
+    fclose(RESULT);
+
+    free(data);
+    free(result);
 
     return 0;
 }
