@@ -53,12 +53,46 @@ int main(int argc, char *argv[]){
         exit(1);
     }
 
-    int n;
-    double a, b;
+    int n; // Source number of intervals;
+    int q = 50; // Final number of intervals is n*q
+    double a, b; // Source interval
+
     fscanf(DATA, "%d", &n);
     fscanf(DATA, "%lf", &a);
     fscanf(DATA, "%lf", &b);
 
+    double *data = malloc(sizeof(double) * n);
+    double *result = malloc(sizeof(double) * q * n);
+
+    if (data == NULL || result == NULL){
+        printf("Error allocating space.\n");
+        exit(1);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        fscanf(DATA, "%lf", &result[i]);
+    }
+
+    // Performing interpolation
+
+    switch(opt)
+    {
+        case 'u':
+            uniform(data, result, a, b, n, q);
+            break;
+        case 'c':
+            chebyshev(data, result, a, b, n, q);
+            break;
+    }
+
+    // Writing file
+
+    fprintf(RESULT, "# %d\n", n * q);
+    fprintf(RESULT, "%lf %lf", a, b);
+
+    for (int i = 0; i < n * q; ++i) {
+        fprintf(RESULT, "%lf\n", result[i]);
+    }
 
     return 0;
 }
