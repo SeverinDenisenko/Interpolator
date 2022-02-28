@@ -70,7 +70,7 @@ int main(int argc, char *argv[]){
     }
 
     for (int i = 0; i < n; ++i) {
-        fscanf(DATA, "%lf", &result[i]);
+        fscanf(DATA, "%lf", &data[i]);
     }
 
     // Performing interpolation
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]){
     // Writing file
 
     fprintf(RESULT, "# %d\n", n * q);
-    fprintf(RESULT, "%lf %lf", a, b);
+    fprintf(RESULT, "%lf %lf\n", a, b);
 
     for (int i = 0; i < n * q; ++i) {
         fprintf(RESULT, "%lf\n", result[i]);
