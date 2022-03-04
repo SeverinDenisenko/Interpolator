@@ -23,9 +23,9 @@ int uniform(double *data, double *result, double a, double b, int n, int q){
         double basics_polinomial = 1;
         double lagrange_polinomial = 0;
 
-        for (int i = 0; i < n; i++)
+        for (int i = 0; i < n + 1; i++)
         {
-            for (int j = 0; j < n; j++)
+            for (int j = 0; j < n + 1; j++)
             {
                 if (j == i) {
                     continue;
@@ -33,6 +33,7 @@ int uniform(double *data, double *result, double a, double b, int n, int q){
                 basics_polinomial *= (x - uniform_x(j, n))/(uniform_x(i, n) - uniform_x(j, n));
             }
             lagrange_polinomial += basics_polinomial * data[i];
+            basics_polinomial = 1;
         }
 
         result[k] = lagrange_polinomial;
