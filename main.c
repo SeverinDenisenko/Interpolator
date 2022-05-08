@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
     }
 
     int n; // Source number of intervals;
-    int q = 50; // Final number of intervals is n*q
+    int q = 200; // Final number of intervals is n*q
     double a, b; // Source interval
 
     fscanf(DATA, "%d", &n);
